@@ -23,19 +23,74 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipControl: UISegmentedControl!
     @IBOutlet weak var totalBackground: UIView!
     
+    
+    // Strings for stored session values
     let INITIAL_VALUE = "$0.00"
-    let TIME = "time"
     let BILL_AMOUNT = "bill_amount"
     let TIP_SELECTED = "tip_selected"
     
+    // Strings for stored permanent values
+    let TIP_SEGMENT_ONE = "tipSegOne"
+    let TIP_SEGMENT_TWO = "tipSegTwo"
+    let TIP_SEGMENT_THREE = "tipSegThree"
+    let TAX = "tax"
+    let TIME = "time"
+    
+    // Other constants
+    let SAVE_TIME = 600 // 10 minutes
+    
+    // Initial Values
+    var firstLoad = true
+    var tipPercentages = [0.15, 0.2, 0.25]
+    var tipSegmentSelected = 1;
     var taxPercentage = 0.1
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tipLabel.text = "$0.00"
-        totalLabel.text = "$0.00"
+    func calculateBill() {
+        var tipPercentage = tipPercentages[tipControl.selectedSegmentIndex]
+        var billAmount = (billField.text as NSString).doubleValue
+        var tipAmount = billAmount * taxPercentage
+        var totalAmount = tipAmount + billAmount
+        tipLabel.text = String(format: "$%.2f", tipAmount)
+        totalLabel.text = String(format: "$%.2f", totalAmount)
     }
-
+    
+    override func viewDidLoad() {
+        if(!firstLoad) {
+            return
+        }
+        
+        // Previous session variables
+        firstLoad = true
+        var defaults = NSUserDefaults.standardUserDefaults()
+        var lastSessionTime = defaults.objectForKey(TIME) as Int?
+        var taxPercentage = defaults.objectForKey(TAX) as Double?
+        
+        // Stored settings variables
+        var tipSegmentOne = defaults.objectForKey(TIP_SEGMENT_ONE) as Double?
+        if (tipSegmentOne != nil) {
+            tipPercentages[0] = tipSegmentOne!
+            tipPercentages[1] = defaults.objectForKey(TIP_SEGMENT_TWO) as Double!
+            tipPercentages[2] = defaults.objectForKey(TIP_SEGMENT_THREE) as Double!
+        }
+        
+        if(lastSessionTime !=  nil) {
+            var currTime = Int(NSDate.timeIntervalSinceReferenceDate())
+            var diff = currTime - lastSessionTime!
+            
+            if(diff < SAVE_TIME) {
+                tipControl.selectedSegmentIndex = defaults.objectForKey(TIP_SELECTED) as Int!
+                billField.text = defaults.objectForKey(BILL_AMOUNT) as String!
+                calculateBill()
+                return
+            }
+        }
+        
+        tipLabel.text = INITIAL_VALUE
+        taxLabel.text = INITIAL_VALUE
+        totalLabel.text = INITIAL_VALUE
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -43,12 +98,10 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        println("view will appear")
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        println("view did appear")
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -60,41 +113,31 @@ class ViewController: UIViewController {
         super.viewDidDisappear(animated)
         
         // Recording the time
-        var defaults = NSUserDefaults.standardUserDefaults()
-        var currTime = UInt8(NSDate.timeIntervalSinceReferenceDate())
-        var strCurrTime = String(currTime);
-        println("Current Time: " + strCurrTime)
+        var currTime = Int(NSDate.timeIntervalSinceReferenceDate())
         
         // Recording the bill amount
         var billAmount = billField.text
         println("Bill Amount: " + billAmount)
         
         // Recording the tip segment selected
-        var tipSelected = String(tipControl.selectedSegmentIndex);
-        println("Tip Segment Selected: " + tipSelected)
+        var tipSelected = tipControl.selectedSegmentIndex;
+        println("Tip Segment Selected: " + String(tipSelected))
         
         // Save data
-        defaults.setObject(TIME, forKey: strCurrTime)
-        defaults.setObject(BILL_AMOUNT, forKey: billAmount)
-        defaults.setObject(TIP_SELECTED, forKey: tipSelected)
-
+        var defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(currTime, forKey: TIME)
+        defaults.setObject(billAmount, forKey: BILL_AMOUNT)
+        defaults.setObject(tipSelected, forKey: TIP_SELECTED)
         defaults.synchronize()
     }
-
+    
     @IBAction func onEditingChanged(sender: AnyObject) {
-        var tipPercentages = [0.15, 0.2, 0.25]
-        var tipPercentage = tipPercentages[tipControl.selectedSegmentIndex]
-        var billAmount = (billField.text as NSString).doubleValue
-        var tipPercent = tipPercentage
-        var tipAmount = billAmount * tipPercent
-        var totalAmount = tipAmount + billAmount
-        tipLabel.text = String(format: "$%.2f", tipAmount)
-        totalLabel.text = String(format: "$%.2f", totalAmount)
+        calculateBill()
     }
-
+    
     @IBAction func onViewTap(sender: AnyObject) {
         view.endEditing(true)
     }
-
+    
 }
 

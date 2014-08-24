@@ -58,6 +58,7 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func onTapReturn(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func onValueChangedSwitch(sender: AnyObject) {
