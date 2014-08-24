@@ -60,6 +60,7 @@ class SettingsViewController: UIViewController {
             topView.backgroundColor = lightBlue
             bottomView.backgroundColor = lightPurple
             
+            tipPercentInput.textColor = UIColor.grayColor()
             light.textColor = UIColor.grayColor()
             dark.textColor = UIColor.darkGrayColor()
             instructionsSetTip.textColor = UIColor.darkGrayColor()
@@ -74,6 +75,7 @@ class SettingsViewController: UIViewController {
             topView.backgroundColor = darkBlue
             bottomView.backgroundColor = darkPurple
             
+            tipPercentInput.textColor = UIColor.whiteColor()
             light.textColor = UIColor.whiteColor()
             dark.textColor = UIColor.lightTextColor()
             instructionsSetTip.textColor = UIColor.lightTextColor()

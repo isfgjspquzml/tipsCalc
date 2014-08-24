@@ -104,6 +104,7 @@ class ViewController: UIViewController {
         currTheme = theme!
         
         if(!currTheme) {
+            tipControl.tintColor = UIColor.whiteColor()
             tipControlBackground.backgroundColor = UIColor.whiteColor()
             billBackground.backgroundColor = UIColor.greenColor()
             tipBackground.backgroundColor = UIColor.magentaColor()
@@ -111,6 +112,7 @@ class ViewController: UIViewController {
             totalLabel.textColor = UIColor.blackColor()
             totalTextLabel.textColor = UIColor.blackColor()
         } else {
+            tipControl.tintColor = UIColor.blueColor()
             tipControlBackground.backgroundColor = UIColor.grayColor()
             billBackground.backgroundColor = UIColor.greenColor()
             tipBackground.backgroundColor = UIColor.magentaColor()
