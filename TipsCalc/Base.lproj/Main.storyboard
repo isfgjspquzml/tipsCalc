@@ -130,12 +130,14 @@
                         <outlet property="billBackground" destination="c6W-o3-igZ" id="Crz-wE-x6f"/>
                         <outlet property="billField" destination="RDI-5s-z0b" id="34S-9z-AGF"/>
                         <outlet property="instructionBackground" destination="DfO-5T-Lbd" id="39u-7U-ue5"/>
+                        <outlet property="tipBackground" destination="3lN-P2-8B6" id="LhH-bQ-LOx"/>
                         <outlet property="tipControl" destination="PNX-W6-CQb" id="3rQ-oc-mlZ"/>
                         <outlet property="tipControlBackground" destination="WTa-44-7T5" id="lm9-Vb-DvO"/>
                         <outlet property="tipInstructionLabel" destination="gWe-1B-oBr" id="UH8-RP-8Ob"/>
                         <outlet property="tipLabel" destination="vOs-Zu-bz3" id="OzX-Fl-tZO"/>
                         <outlet property="totalBackground" destination="nW8-Xp-O6h" id="uXx-Op-THs"/>
                         <outlet property="totalLabel" destination="tZy-TV-zPN" id="o6Q-dy-8oQ"/>
+                        <outlet property="totalTextLabel" destination="gGu-qJ-XuA" id="Saj-QW-btC"/>
                         <outlet property="viewParent" destination="kh9-bI-dsS" id="Y89-Lx-t8K"/>
                     </connections>
                 </viewController>
@@ -156,71 +158,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="hhm-xi-ilC">
-                                <rect key="frame" x="0.0" y="83" width="320" height="420"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" id="04C-33-caQ">
-                                        <rect key="frame" x="0.0" y="-45" width="326" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Tip Value" textAlignment="right" minimumFontSize="17" id="GyS-F1-bGo">
-                                        <rect key="frame" x="112" y="226" width="97" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set your quick tap tip percentages" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8pe-Ku-WFv">
-                                        <rect key="frame" x="31" y="57" width="264" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="9hw-4v-MEF">
-                                        <rect key="frame" x="39" y="169" width="249" height="29"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <segments>
-                                            <segment title="First"/>
-                                            <segment title="Second"/>
-                                            <segment title="Third"/>
-                                        </segments>
-                                        <connections>
-                                            <action selector="onValueChangedTipControl:" destination="aUM-P6-zoU" eventType="valueChanged" id="CGw-NH-vXc"/>
-                                        </connections>
-                                    </segmentedControl>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="r1Z-gB-QGx">
-                                        <rect key="frame" x="217" y="230" width="18" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the '+' button to confirm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QzA-Ti-M5i">
-                                        <rect key="frame" x="51" y="86" width="219" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" id="AIq-fX-5nk">
-                                        <rect key="frame" x="243" y="230" width="22" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="onTapTip:" destination="aUM-P6-zoU" eventType="touchUpInside" id="ytN-R6-opO"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.65803830477835779" green="1" blue="0.87368493485211829" alpha="1" colorSpace="calibratedRGB"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="JHV-Tt-gOH" appends="YES" id="DpU-cU-U4C"/>
-                                </connections>
-                            </view>
                             <view contentMode="scaleToFill" id="knO-32-NT6">
                                 <rect key="frame" x="0.0" y="503" width="320" height="127"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -230,6 +167,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Return">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -239,9 +177,6 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.9481323392939135" green="0.89165912056174257" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="iY3-hj-MHA" appends="YES" id="UIx-SV-Grx"/>
-                                </connections>
                             </view>
                             <view contentMode="scaleToFill" id="vQy-QD-o7A">
                                 <rect key="frame" x="-36" y="-90" width="375" height="207"/>
@@ -251,7 +186,7 @@
                                         <rect key="frame" x="95" y="150" width="39" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="90u-Lv-SKb">
@@ -265,53 +200,96 @@
                                         <rect key="frame" x="263" y="150" width="36" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="dKS-cM-e1B" appends="YES" id="vp1-08-9Yc"/>
-                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" id="hhm-xi-ilC">
+                                <rect key="frame" x="0.0" y="125" width="320" height="378"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Tip Value" textAlignment="right" minimumFontSize="17" id="GyS-F1-bGo">
+                                        <rect key="frame" x="109" y="222" width="97" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                    </textField>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="9hw-4v-MEF">
+                                        <rect key="frame" x="36" y="165" width="249" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <segments>
+                                            <segment title="First"/>
+                                            <segment title="Second"/>
+                                            <segment title="Third"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="onValueChangedTipControl:" destination="aUM-P6-zoU" eventType="valueChanged" id="CGw-NH-vXc"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="r1Z-gB-QGx">
+                                        <rect key="frame" x="214" y="226" width="18" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set your quick tap tip percentages" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8pe-Ku-WFv">
+                                        <rect key="frame" x="28" y="91" width="264" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the '+' button to confirm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QzA-Ti-M5i">
+                                        <rect key="frame" x="48" y="120" width="219" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" id="AIq-fX-5nk">
+                                        <rect key="frame" x="149" y="270" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onTapTip:" destination="aUM-P6-zoU" eventType="touchUpInside" id="ytN-R6-opO"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.65803830477835779" green="1" blue="0.87368493485211829" alpha="1" colorSpace="calibratedRGB"/>
+                                <gestureRecognizers/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ERd-WS-21h" appends="YES" id="Ahy-Yq-fX2"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="bottomView" destination="knO-32-NT6" id="z68-Tm-ZZk"/>
                         <outlet property="dark" destination="nd8-Rk-mo2" id="F6g-CG-oLG"/>
-                        <outlet property="instructions1" destination="8pe-Ku-WFv" id="Eif-Gr-ddO"/>
+                        <outlet property="instructionsSetTip" destination="8pe-Ku-WFv" id="ea8-EO-9cg"/>
+                        <outlet property="instructionsTapPlus" destination="QzA-Ti-M5i" id="F2r-m7-27x"/>
                         <outlet property="light" destination="gJx-og-l9k" id="rMo-Oe-3mS"/>
                         <outlet property="lightDarkSwitch" destination="90u-Lv-SKb" id="sKQ-mj-v55"/>
                         <outlet property="lightDarkView" destination="vQy-QD-o7A" id="HhO-XO-Bnu"/>
-                        <outlet property="percent1" destination="r1Z-gB-QGx" id="Onu-YA-tLx"/>
-                        <outlet property="tapInstructions1" destination="QzA-Ti-M5i" id="PkI-Q4-cbx"/>
+                        <outlet property="percentSign" destination="r1Z-gB-QGx" id="bx1-m9-6mw"/>
+                        <outlet property="returnButton" destination="t47-Z8-XSn" id="tcQ-26-P3L"/>
                         <outlet property="tipControl" destination="9hw-4v-MEF" id="FmT-Dd-rvu"/>
                         <outlet property="tipPercentInput" destination="GyS-F1-bGo" id="ffa-Hl-y2D"/>
                         <outlet property="topView" destination="hhm-xi-ilC" id="aus-qb-7hf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9l8-tl-LTc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="JHV-Tt-gOH">
+                <tapGestureRecognizer id="ERd-WS-21h">
                     <connections>
-                        <action selector="onViewTap:" destination="aUM-P6-zoU" id="u0M-1X-wvg"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="O5Z-bF-8rQ">
-                    <connections>
-                        <action selector="onViewTap:" destination="aUM-P6-zoU" id="2hu-yV-WQ5"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="iY3-hj-MHA">
-                    <connections>
-                        <action selector="onViewTap:" destination="aUM-P6-zoU" id="BFJ-9b-uNl"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="dKS-cM-e1B">
-                    <connections>
-                        <action selector="onViewTap:" destination="aUM-P6-zoU" id="7Ks-1f-vQG"/>
+                        <action selector="onViewTap:" destination="aUM-P6-zoU" id="lN7-dU-a0b"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

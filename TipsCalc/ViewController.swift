@@ -14,11 +14,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var instructionBackground: UIView!
     @IBOutlet weak var tipControlBackground: UIView!
     @IBOutlet weak var billBackground: UIView!
+    @IBOutlet weak var tipBackground: UIView!
     @IBOutlet weak var totalBackground: UIView!
     
     @IBOutlet weak var tipInstructionLabel: UILabel!
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var tipLabel: UILabel!
+    @IBOutlet weak var totalTextLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tipControl: UISegmentedControl!
     
@@ -32,8 +34,7 @@ class ViewController: UIViewController {
     let TIP_SEGMENT_TWO = "tipSegTwo"
     let TIP_SEGMENT_THREE = "tipSegThree"
     let TIME = "time"
-    let DARK = "dark"
-    let LIGHT = "light"
+    let THEME = "theme"
     
     // Other constants
     let SAVE_TIME = 600 // 10 minutes
@@ -44,8 +45,12 @@ class ViewController: UIViewController {
     var tipPercentages = [0.15, 0.18, 0.20]
     var tipSegmentSelected = 1;
     var taxPercentage = 0.1
+    var currTheme = false
     
     func calculateBill() {
+        if(tipControl.selectedSegmentIndex == -1) {
+            return
+        }
         var tipPercentage = tipPercentages[tipControl.selectedSegmentIndex]
         var billAmount = (billField.text as NSString).doubleValue
         var tipAmount = billAmount * tipPercentage
@@ -62,21 +67,21 @@ class ViewController: UIViewController {
         case TIP_SEGMENT_ONE:
             if(tip != nil) {
                 tipPercentages[0] = tip!
-                tipControl.setTitle(NSString(format: "%.2f", tipPercentages[0]) + "%", forSegmentAtIndex: 0)
+                tipControl.setTitle(NSString(format: "%.0f", tipPercentages[0]) + "%", forSegmentAtIndex: 0)
             } else {
                 tipControl.setTitle("15%", forSegmentAtIndex: 0)
             }
         case TIP_SEGMENT_TWO:
             if(tip != nil) {
                 tipPercentages[1] = defaults.objectForKey(setting) as Double!
-                tipControl.setTitle(NSString(format: "%.2f", tipPercentages[1]) + "%", forSegmentAtIndex: 1)
+                tipControl.setTitle(NSString(format: "%.0f", tipPercentages[1]) + "%", forSegmentAtIndex: 1)
             } else {
                 tipControl.setTitle("18%", forSegmentAtIndex: 0)
             }
         case TIP_SEGMENT_THREE:
             if(tip != nil) {
                 tipPercentages[2] = defaults.objectForKey(setting) as Double!
-                tipControl.setTitle(NSString(format: "%.2f", tipPercentages[2]) + "%", forSegmentAtIndex: 2)
+                tipControl.setTitle(NSString(format: "%.0f", tipPercentages[2]) + "%", forSegmentAtIndex: 2)
             } else {
                 tipControl.setTitle("20%", forSegmentAtIndex: 0)
             }
@@ -85,14 +90,33 @@ class ViewController: UIViewController {
         }
     }
     
-    func changeTheme(theme:String) {
-        switch theme {
-        case DARK:
-            return
-        case LIGHT:
-            return
-        default:
-            return
+    func updateTheme() {
+        var defaults = NSUserDefaults.standardUserDefaults()
+        var theme = defaults.objectForKey(THEME) as Bool?
+        if(theme != nil) {
+            if (theme == currTheme) {
+                return
+            }
+        } else {
+            theme = false
+        }
+        
+        currTheme = theme!
+        
+        if(!currTheme) {
+            tipControlBackground.backgroundColor = UIColor.whiteColor()
+            billBackground.backgroundColor = UIColor.greenColor()
+            tipBackground.backgroundColor = UIColor.magentaColor()
+            totalBackground.backgroundColor = UIColor.whiteColor()
+            totalLabel.textColor = UIColor.blackColor()
+            totalTextLabel.textColor = UIColor.blackColor()
+        } else {
+            tipControlBackground.backgroundColor = UIColor.grayColor()
+            billBackground.backgroundColor = UIColor.greenColor()
+            tipBackground.backgroundColor = UIColor.magentaColor()
+            totalBackground.backgroundColor = UIColor.grayColor()
+            totalLabel.textColor = UIColor.whiteColor()
+            totalTextLabel.textColor = UIColor.whiteColor()
         }
     }
     
@@ -101,16 +125,16 @@ class ViewController: UIViewController {
             return
         }
         
+        // Stored settings variables
+        updateSetting(TIP_SEGMENT_ONE)
+        updateSetting(TIP_SEGMENT_TWO)
+        updateSetting(TIP_SEGMENT_THREE)
+        
         firstLoad = true
         
         // Previous session variables
         var defaults = NSUserDefaults.standardUserDefaults()
         var lastSessionTime = defaults.objectForKey(TIME) as Int?
-        
-        // Stored settings variables
-        updateSetting(TIP_SEGMENT_ONE)
-        updateSetting(TIP_SEGMENT_TWO)
-        updateSetting(TIP_SEGMENT_THREE)
         
         if(lastSessionTime !=  nil) {
             var currTime = Int(NSDate.timeIntervalSinceReferenceDate())
@@ -126,6 +150,16 @@ class ViewController: UIViewController {
         tipLabel.text = INITIAL_VALUE
         totalLabel.text = INITIAL_VALUE
         tipControl.selectedSegmentIndex = -1
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Stored settings variables
+        updateSetting(TIP_SEGMENT_ONE)
+        updateSetting(TIP_SEGMENT_TWO)
+        updateSetting(TIP_SEGMENT_THREE)
+        updateTheme()
     }
     
     override func viewDidDisappear(animated: Bool) {
