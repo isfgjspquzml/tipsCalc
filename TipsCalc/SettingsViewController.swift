@@ -83,6 +83,9 @@ class SettingsViewController: UIViewController {
             percentSign.textColor = UIColor.lightTextColor()
             returnButton.setTitleColor(UIColor.cyanColor(), forState: .Normal)
         }
+        
+        var defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(lightDarkSwitch.on, forKey: THEME)
     }
     
     @IBAction func onTapTip(sender: AnyObject) {
