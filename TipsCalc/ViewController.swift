@@ -54,24 +54,54 @@ class ViewController: UIViewController {
         totalLabel.text = String(format: "$%.2f", totalAmount)
     }
     
+    func updateSetting(setting:String) {
+        var defaults = NSUserDefaults.standardUserDefaults()
+        switch(setting) {
+        case TIP_SEGMENT_ONE:
+            var tip = defaults.objectForKey(setting) as Double?
+            if(tip != nil) {
+                tipPercentages[0] = tip!
+                tipControl.setTitle(NSString(format: "%.2f", tipPercentages[0]) + "%", forSegmentAtIndex: 0)
+            }
+        case TIP_SEGMENT_TWO:
+            var tip = defaults.objectForKey(setting) as Double?
+            if(tip != nil) {
+            tipPercentages[1] = defaults.objectForKey(setting) as Double!
+            tipControl.setTitle(NSString(format: "%.2f", tipPercentages[1]) + "%", forSegmentAtIndex: 1)
+            }
+        case TIP_SEGMENT_THREE:
+            var tip = defaults.objectForKey(setting) as Double?
+            if(tip != nil) {
+            tipPercentages[2] = defaults.objectForKey(setting) as Double!
+            tipControl.setTitle(NSString(format: "%.2f", tipPercentages[2]) + "%", forSegmentAtIndex: 2)
+            }
+        case TAX:
+            var tip = defaults.objectForKey(setting) as Double?
+            if(tip != nil) {
+            taxPercentage = defaults.objectForKey(setting) as Double!
+            }
+        default:
+            return
+        }
+    }
+    
     override func viewDidLoad() {
         if(!firstLoad) {
             return
         }
         
-        // Previous session variables
         firstLoad = true
+        
+        // Previous session variables
         var defaults = NSUserDefaults.standardUserDefaults()
         var lastSessionTime = defaults.objectForKey(TIME) as Int?
         var taxPercentage = defaults.objectForKey(TAX) as Double?
         
         // Stored settings variables
-        var tipSegmentOne = defaults.objectForKey(TIP_SEGMENT_ONE) as Double?
-        if (tipSegmentOne != nil) {
-            tipPercentages[0] = tipSegmentOne!
-            tipPercentages[1] = defaults.objectForKey(TIP_SEGMENT_TWO) as Double!
-            tipPercentages[2] = defaults.objectForKey(TIP_SEGMENT_THREE) as Double!
-        }
+        updateSetting(TIP_SEGMENT_ONE)
+        updateSetting(TIP_SEGMENT_TWO)
+        updateSetting(TIP_SEGMENT_THREE)
+        updateSetting(TAX)
         
         if(lastSessionTime !=  nil) {
             var currTime = Int(NSDate.timeIntervalSinceReferenceDate())
@@ -138,6 +168,5 @@ class ViewController: UIViewController {
     @IBAction func onViewTap(sender: AnyObject) {
         view.endEditing(true)
     }
-    
 }
 
