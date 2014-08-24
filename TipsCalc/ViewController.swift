@@ -105,21 +105,22 @@ class ViewController: UIViewController {
         currTheme = theme!
         
         if(!currTheme) {
-            tipControl.tintColor = UIColor.whiteColor()
             tipControlBackground.backgroundColor = UIColor.whiteColor()
             billBackground.backgroundColor = UIColor.greenColor()
             tipBackground.backgroundColor = UIColor.magentaColor()
             totalBackground.backgroundColor = UIColor.whiteColor()
             totalLabel.textColor = UIColor.blackColor()
             totalTextLabel.textColor = UIColor.blackColor()
-        } else {
             tipControl.tintColor = UIColor.blueColor()
+
+        } else {
             tipControlBackground.backgroundColor = UIColor.grayColor()
             billBackground.backgroundColor = UIColor.greenColor()
             tipBackground.backgroundColor = UIColor.magentaColor()
             totalBackground.backgroundColor = UIColor.grayColor()
             totalLabel.textColor = UIColor.whiteColor()
             totalTextLabel.textColor = UIColor.whiteColor()
+            tipControl.tintColor = UIColor.blueColor()
         }
     }
     
