@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipControl: UISegmentedControl!
     
     // Strings for stored session values
-    let INITIAL_VALUE = "$0.00"
+    let INITIAL_VALUE = "0.00"
     let BILL_AMOUNT = "bill_amount"
     let TIP_SELECTED = "tip_selected"
     
@@ -46,6 +46,7 @@ class ViewController: UIViewController {
     var tipSegmentSelected = 1;
     var taxPercentage = 0.1
     var currTheme = false
+    var localCurrency = "$"
     
     func calculateBill() {
         if(tipControl.selectedSegmentIndex == -1) {
@@ -55,8 +56,8 @@ class ViewController: UIViewController {
         var billAmount = (billField.text as NSString).doubleValue
         var tipAmount = billAmount * tipPercentage
         var totalAmount = billAmount + tipAmount
-        tipLabel.text = String(format: "$%.2f", tipAmount)
-        totalLabel.text = String(format: "$%.2f", totalAmount)
+        tipLabel.text = localCurrency + String(format: "%.2f", tipAmount)
+        totalLabel.text = localCurrency + String(format: "%.2f", totalAmount)
     }
     
     func updateSetting(setting:String) {
@@ -127,6 +128,9 @@ class ViewController: UIViewController {
             return
         }
         
+        var currentLocale = NSLocale.currentLocale()
+        localCurrency = currentLocale.objectForKey(NSLocaleCurrencySymbol) as String!
+        
         // Stored settings variables
         updateSetting(TIP_SEGMENT_ONE)
         updateSetting(TIP_SEGMENT_TWO)
@@ -163,6 +167,7 @@ class ViewController: UIViewController {
         updateSetting(TIP_SEGMENT_THREE)
         updateTheme()
         
+        instructionsRemoved = false
         calculateBill()
     }
     
@@ -188,7 +193,7 @@ class ViewController: UIViewController {
         defaults.synchronize()
     }
     
-    @IBAction func onEditingChanged(sender: AnyObject) {
+    @IBAction func onTipChanged(sender: AnyObject) {
         if(!instructionsRemoved) {
             var instructionHeight = instructionBackground.frame.size.height
             UIView.animateWithDuration(1, delay:0.25, options: .CurveEaseOut, animations: {
@@ -200,6 +205,10 @@ class ViewController: UIViewController {
                     self.instructionsRemoved = true
             })
         }
+        calculateBill()
+    }
+    
+    @IBAction func onEditingChanged(sender: AnyObject) {
         calculateBill()
     }
     
