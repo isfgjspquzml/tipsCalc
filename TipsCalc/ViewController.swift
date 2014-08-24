@@ -10,19 +10,17 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet var viewParent: UIView!
     @IBOutlet weak var instructionBackground: UIView!
     @IBOutlet weak var tipControlBackground: UIView!
     @IBOutlet weak var billBackground: UIView!
-    @IBOutlet weak var tipAmountBackground: UIView!
-    @IBOutlet weak var taxAmountBackgroudn: UIView!
+    @IBOutlet weak var totalBackground: UIView!
     
+    @IBOutlet weak var tipInstructionLabel: UILabel!
     @IBOutlet weak var billField: UITextField!
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
-    @IBOutlet weak var taxLabel: UILabel!
     @IBOutlet weak var tipControl: UISegmentedControl!
-    @IBOutlet weak var totalBackground: UIView!
-    
     
     // Strings for stored session values
     let INITIAL_VALUE = "$0.00"
@@ -33,53 +31,66 @@ class ViewController: UIViewController {
     let TIP_SEGMENT_ONE = "tipSegOne"
     let TIP_SEGMENT_TWO = "tipSegTwo"
     let TIP_SEGMENT_THREE = "tipSegThree"
-    let TAX = "tax"
     let TIME = "time"
+    let DARK = "dark"
+    let LIGHT = "light"
     
     // Other constants
     let SAVE_TIME = 600 // 10 minutes
     
     // Initial Values
     var firstLoad = true
-    var tipPercentages = [0.15, 0.2, 0.25]
+    var instructionsRemoved = false;
+    var tipPercentages = [0.15, 0.18, 0.20]
     var tipSegmentSelected = 1;
     var taxPercentage = 0.1
     
     func calculateBill() {
         var tipPercentage = tipPercentages[tipControl.selectedSegmentIndex]
         var billAmount = (billField.text as NSString).doubleValue
-        var tipAmount = billAmount * taxPercentage
-        var totalAmount = tipAmount + billAmount
+        var tipAmount = billAmount * tipPercentage
+        var totalAmount = billAmount + tipAmount
         tipLabel.text = String(format: "$%.2f", tipAmount)
         totalLabel.text = String(format: "$%.2f", totalAmount)
     }
     
     func updateSetting(setting:String) {
         var defaults = NSUserDefaults.standardUserDefaults()
+        var tip = defaults.objectForKey(setting) as Double?
+        
         switch(setting) {
         case TIP_SEGMENT_ONE:
-            var tip = defaults.objectForKey(setting) as Double?
             if(tip != nil) {
                 tipPercentages[0] = tip!
                 tipControl.setTitle(NSString(format: "%.2f", tipPercentages[0]) + "%", forSegmentAtIndex: 0)
+            } else {
+                tipControl.setTitle("15%", forSegmentAtIndex: 0)
             }
         case TIP_SEGMENT_TWO:
-            var tip = defaults.objectForKey(setting) as Double?
             if(tip != nil) {
-            tipPercentages[1] = defaults.objectForKey(setting) as Double!
-            tipControl.setTitle(NSString(format: "%.2f", tipPercentages[1]) + "%", forSegmentAtIndex: 1)
+                tipPercentages[1] = defaults.objectForKey(setting) as Double!
+                tipControl.setTitle(NSString(format: "%.2f", tipPercentages[1]) + "%", forSegmentAtIndex: 1)
+            } else {
+                tipControl.setTitle("18%", forSegmentAtIndex: 0)
             }
         case TIP_SEGMENT_THREE:
-            var tip = defaults.objectForKey(setting) as Double?
             if(tip != nil) {
-            tipPercentages[2] = defaults.objectForKey(setting) as Double!
-            tipControl.setTitle(NSString(format: "%.2f", tipPercentages[2]) + "%", forSegmentAtIndex: 2)
+                tipPercentages[2] = defaults.objectForKey(setting) as Double!
+                tipControl.setTitle(NSString(format: "%.2f", tipPercentages[2]) + "%", forSegmentAtIndex: 2)
+            } else {
+                tipControl.setTitle("20%", forSegmentAtIndex: 0)
             }
-        case TAX:
-            var tip = defaults.objectForKey(setting) as Double?
-            if(tip != nil) {
-            taxPercentage = defaults.objectForKey(setting) as Double!
-            }
+        default:
+            return
+        }
+    }
+    
+    func changeTheme(theme:String) {
+        switch theme {
+        case DARK:
+            return
+        case LIGHT:
+            return
         default:
             return
         }
@@ -95,13 +106,11 @@ class ViewController: UIViewController {
         // Previous session variables
         var defaults = NSUserDefaults.standardUserDefaults()
         var lastSessionTime = defaults.objectForKey(TIME) as Int?
-        var taxPercentage = defaults.objectForKey(TAX) as Double?
         
         // Stored settings variables
         updateSetting(TIP_SEGMENT_ONE)
         updateSetting(TIP_SEGMENT_TWO)
         updateSetting(TIP_SEGMENT_THREE)
-        updateSetting(TAX)
         
         if(lastSessionTime !=  nil) {
             var currTime = Int(NSDate.timeIntervalSinceReferenceDate())
@@ -114,29 +123,9 @@ class ViewController: UIViewController {
                 return
             }
         }
-        
         tipLabel.text = INITIAL_VALUE
-        taxLabel.text = INITIAL_VALUE
         totalLabel.text = INITIAL_VALUE
-        
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        println("view will disappear")
+        tipControl.selectedSegmentIndex = -1
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -162,6 +151,17 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onEditingChanged(sender: AnyObject) {
+        if(!instructionsRemoved) {
+            var instructionHeight = instructionBackground.frame.size.height
+            UIView.animateWithDuration(1, delay:0.25, options: .CurveEaseOut, animations: {
+                var viewParentTopFrame = self.viewParent.frame
+                viewParentTopFrame.origin.y -= instructionHeight
+                
+                self.viewParent.frame = viewParentTopFrame
+                }, completion: { finished in
+                    self.instructionsRemoved = true
+            })
+        }
         calculateBill()
     }
     
