@@ -26,8 +26,6 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var instructionsTapPlus: UILabel!
     @IBOutlet weak var returnButton: UIButton!
     
-    var tipSegment = -1
-    
     // Do class properties exist? Just getting stuff to work
     let TIP_SEGMENT_ONE = "tipSegOne"
     let TIP_SEGMENT_TWO = "tipSegTwo"
@@ -86,16 +84,13 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func onTapTip(sender: AnyObject) {
-        if(tipSegment == -1) {
-            return
-        }
-        
         // Save data
         var defaults = NSUserDefaults.standardUserDefaults()
         var tipInit = (tipPercentInput.text as NSString).doubleValue
         
         // Would find a way to get other class but for now just getting stuff working
-        switch tipSegment {
+        println(tipControl.selectedSegmentIndex)
+        switch tipControl.selectedSegmentIndex {
         case 0:
             defaults.setObject(tipInit, forKey: TIP_SEGMENT_ONE)
         case 1:
@@ -107,10 +102,6 @@ class SettingsViewController: UIViewController {
         }
         
         tipPercentInput.text = ""
-    }
-    
-    @IBAction func onValueChangedTipControl(sender: AnyObject) {
-        tipSegment = tipControl.selectedSegmentIndex
     }
     
     @IBAction func onTapReturn(sender: AnyObject) {

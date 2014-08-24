@@ -225,9 +225,6 @@
                                             <segment title="Second"/>
                                             <segment title="Third"/>
                                         </segments>
-                                        <connections>
-                                            <action selector="onValueChangedTipControl:" destination="aUM-P6-zoU" eventType="valueChanged" id="CGw-NH-vXc"/>
-                                        </connections>
                                     </segmentedControl>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="r1Z-gB-QGx">
                                         <rect key="frame" x="214" y="226" width="18" height="21"/>

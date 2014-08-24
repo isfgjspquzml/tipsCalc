@@ -66,22 +66,22 @@ class ViewController: UIViewController {
         switch(setting) {
         case TIP_SEGMENT_ONE:
             if(tip != nil) {
-                tipPercentages[0] = tip!
-                tipControl.setTitle(NSString(format: "%.0f", tipPercentages[0]) + "%", forSegmentAtIndex: 0)
+                tipPercentages[0] = tip!/100
+                tipControl.setTitle(NSString(format: "%.0f", tip!) + "%", forSegmentAtIndex: 0)
             } else {
                 tipControl.setTitle("15%", forSegmentAtIndex: 0)
             }
         case TIP_SEGMENT_TWO:
             if(tip != nil) {
-                tipPercentages[1] = defaults.objectForKey(setting) as Double!
-                tipControl.setTitle(NSString(format: "%.0f", tipPercentages[1]) + "%", forSegmentAtIndex: 1)
+                tipPercentages[1] = tip!/100
+                tipControl.setTitle(NSString(format: "%.0f", tip!) + "%", forSegmentAtIndex: 1)
             } else {
                 tipControl.setTitle("18%", forSegmentAtIndex: 0)
             }
         case TIP_SEGMENT_THREE:
             if(tip != nil) {
-                tipPercentages[2] = defaults.objectForKey(setting) as Double!
-                tipControl.setTitle(NSString(format: "%.0f", tipPercentages[2]) + "%", forSegmentAtIndex: 2)
+                tipPercentages[2] = tip!/100
+                tipControl.setTitle(NSString(format: "%.0f", tip!) + "%", forSegmentAtIndex: 2)
             } else {
                 tipControl.setTitle("20%", forSegmentAtIndex: 0)
             }
@@ -160,6 +160,8 @@ class ViewController: UIViewController {
         updateSetting(TIP_SEGMENT_TWO)
         updateSetting(TIP_SEGMENT_THREE)
         updateTheme()
+        
+        calculateBill()
     }
     
     override func viewDidDisappear(animated: Bool) {
